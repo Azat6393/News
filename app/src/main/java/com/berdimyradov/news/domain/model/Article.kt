@@ -8,4 +8,15 @@ data class Article(
     val title: String,
     val url: String,
     val imageUrl: String
-)
+) {
+    fun doesMatchSearchQuery(query: String): Boolean {
+        val matchingCombinations = listOf(
+            title,
+            description
+        )
+
+        return matchingCombinations.any {
+            it.contains(query, ignoreCase = true)
+        }
+    }
+}

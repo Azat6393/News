@@ -21,7 +21,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_til"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/edit_text_height"
+        android:layout_height="wrap_content"
         android:hint="@string/search_news"
         android:layout_marginHorizontal="@dimen/_15dp"
         android:layout_marginTop="@dimen/_10dp"
@@ -30,8 +30,7 @@
         app:boxCornerRadiusBottomStart="@dimen/edit_text_corner"
         app:boxCornerRadiusBottomEnd="@dimen/edit_text_corner"
         app:boxCornerRadiusTopEnd="@dimen/edit_text_corner"
-        app:boxCornerRadiusTopStart="@dimen/edit_text_corner"
-        app:layout_constraintHeight="@dimen/edit_text_height">
+        app:boxCornerRadiusTopStart="@dimen/edit_text_corner">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

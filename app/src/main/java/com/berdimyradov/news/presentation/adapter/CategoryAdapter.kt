@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.berdimyradov.news.databinding.ItemCategoryBinding
+import com.berdimyradov.news.domain.model.Article
 import com.berdimyradov.news.domain.model.Category
 
-class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallBack) {
+class CategoryAdapter(private val onArticleClick: (Article) -> Unit) :
+    ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallBack) {
 
     private var context: Context? = null
 
@@ -33,7 +35,9 @@ class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder
     inner class CategoryViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val mAdapter: ArticleAdapter by lazy { ArticleAdapter() }
+        private val mAdapter: ArticleAdapter by lazy {
+            ArticleAdapter(onArticleClick = onArticleClick)
+        }
 
         fun bind(item: Category) {
             binding.categoryTv.text = item.category.replaceFirstChar(Char::titlecase)

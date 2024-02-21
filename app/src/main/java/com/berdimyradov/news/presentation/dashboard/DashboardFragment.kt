@@ -1,7 +1,10 @@
 package com.berdimyradov.news.presentation.dashboard
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,15 +18,19 @@ import com.berdimyradov.news.presentation.adapter.CategoryAdapter
 import com.berdimyradov.news.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private val viewModel: DashboardViewModel by viewModels()
-    private val mAdapter: CategoryAdapter by lazy { CategoryAdapter() }
+    private val mAdapter: CategoryAdapter by lazy {
+        CategoryAdapter(onArticleClick = {
+            openBrowser(it.url)
+        })
+    }
     private var _binding: FragmentDashboardBinding? = null
     private val binding: FragmentDashboardBinding
         get() = _binding!!
@@ -46,6 +53,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
+        binding.searchTil.editText?.doAfterTextChanged { query ->
+            viewModel.searchNews(query.toString())
+        }
     }
 
     private fun observe() {
@@ -61,11 +71,17 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             is Resource.Error -> showMessage(resource.message ?: return)
             is Resource.Loading -> {
                 showMessage("Loading...")
-                mAdapter.submitList(resource.data)
+                mAdapter.submitList(resource.data?.filter { it.articles.isNotEmpty() })
             }
-            is Resource.Success -> mAdapter.submitList(resource.data)
+
+            is Resource.Success -> mAdapter.submitList(resource.data?.filter { it.articles.isNotEmpty() })
             null -> Unit
         }
+    }
+
+    private fun openBrowser(url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
     }
 
     private fun showMessage(text: String) {

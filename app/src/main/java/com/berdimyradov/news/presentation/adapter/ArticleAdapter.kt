@@ -10,7 +10,9 @@ import com.berdimyradov.news.R
 import com.berdimyradov.news.databinding.ItemArticleBinding
 import com.berdimyradov.news.domain.model.Article
 
-class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(DiffCallBack) {
+class ArticleAdapter (
+    private val onArticleClick: (Article) -> Unit
+) : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(DiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder(
@@ -36,7 +38,7 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(Di
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
                     if (item != null) {
-
+                        onArticleClick(item)
                     }
                 }
             }
