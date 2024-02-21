@@ -5,7 +5,6 @@ import com.berdimyradov.news.data.source.remote.response.SourcesResponse
 import com.berdimyradov.news.utils.Config
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.util.Locale
 
 interface NewsApi {
 
@@ -23,7 +22,9 @@ interface NewsApi {
     @GET(TOP_HEADLINES)
     suspend fun getArticles(
         @Query("apiKey") apiKey: String = Config.NEWS_API_KEY,
-        @Query("country") country: String = Locale.getDefault().language,
+        @Query("country") country: String = "us",
+        @Query("pageSize") pageSize: Int = 20,
+        @Query("page") page: Int = 1,
         @Query("category") category: String
     ): ArticlesResponse
 }

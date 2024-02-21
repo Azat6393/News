@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/article_width"
+    android:layout_height="@dimen/article_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="5dp"
+    app:strokeWidth="0dp"
+    android:layout_marginBottom="@dimen/_10dp"
+    android:layout_marginStart="@dimen/news_margin"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/article_image_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/baseline_broken_image_24"
+        android:importantForAccessibility="no" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/article_height"
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradient" />
+
+    <TextView
+        android:id="@+id/article_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/news_margin"
+        tools:text="Business"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAlignment="textEnd"
+        android:layout_marginStart="@dimen/news_margin"
+        android:layout_gravity="bottom|end" />
+
+
+</com.google.android.material.card.MaterialCardView>
